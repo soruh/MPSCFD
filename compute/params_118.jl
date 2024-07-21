@@ -1,8 +1,8 @@
 M = 10
 
 χ = 118
-χ_rhs = χ + 10
-χ_mpo = 1000 # contrained through cutoff_mpo
+χ_rhs = χ
+χ_mpo = 128 # constrained through cutoff_mpo
 
 cutoff = 0
 cutoff_rhs = 0
@@ -24,9 +24,7 @@ h = 1 / 200
 
 order = 8
 jet_params = MPSCFD.JetParams(u_0, h, 0.4, 0.6, L)
-# ν = u_0 * h / Re
 ν = u_0 * L / Re
-
 
 linsolve_params = (
     maxiter=10,

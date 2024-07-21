@@ -2,7 +2,7 @@ M = 10
 
 χ = 33
 χ_rhs = χ
-χ_mpo = 40
+χ_mpo = 128 # constrained through cutoff_mpo
 
 cutoff = 0
 cutoff_rhs = 0
@@ -24,15 +24,17 @@ h = 1 / 200
 
 order = 8
 jet_params = MPSCFD.JetParams(u_0, h, 0.4, 0.6, L)
-# ν = u_0 * h / Re
 ν = u_0 * L / Re
 
-maxiter = 10
+linsolve_params = (
+    maxiter=10,
+    krylovdim=30,
+)
 
 params = MPSCFD.Parameters(
     χ, χ_mpo, χ_rhs,
     cutoff, cutoff_mpo, cutoff_rhs,
-    Δt, T, μ, ν, L, order, (maxiter = maxiter)
+    Δt, T, μ, ν, L, order, linsolve_params
 )
 
 filename = "res_$χ.h5"
