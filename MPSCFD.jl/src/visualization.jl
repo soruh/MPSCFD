@@ -114,3 +114,31 @@ function energy_cascade(x, y)
 
     (Ek_x .+ Ek_y) / 2.0
 end
+
+function color_map(; width=0.1, N=200)
+
+    b = 0.50 - width / 2
+    a = b * 5 / 9
+    gradients = [
+        ((0, a), ["#0ff", "#00f"]),
+        ((a, b), ["#00f", "#40407f"]),
+        ((1 - b, 1 - a), ["#7f4040", "#f00"]),
+        ((1 - a, 1), ["#f00", "#ff0"]),
+    ]
+
+    colors = map(range(0, 1; length=N)) do v
+        i = findfirst(gradients) do ((start, stop), _)
+            v >= start && v <= stop
+        end
+
+        if isnothing(i)
+            return "#fff"
+        end
+
+        start, stop = gradients[i][1]
+        f = max(v - start, 0) / (stop - start)
+        cgrad(gradients[i][2], [0.0, 1.0])[f]
+    end
+
+    cgrad(colors, range(0, 1; length=N + 1); categorical=true)
+end
