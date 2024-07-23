@@ -17,7 +17,7 @@ let
     using Pkg
     # Pkg.respect_sysimage_versions(false)
     # Pkg.activate(; temp=true)
-    Pkg.develop(url="../lib_new/MPSCFD.jl")
+    Pkg.develop(url="../MPSCFD.jl")
 end
 
 let
